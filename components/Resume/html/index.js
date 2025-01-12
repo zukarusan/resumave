@@ -42,6 +42,7 @@ const Header = ({ data }) => {
     return (
         <Section>
             <Text style={styles.header__name}>{data.name}</Text>
+            <Text style={styles.header__title}>{data.title}</Text>
             <View style={styles.header__links}>
                 {contactLinks
                     .filter(obj => obj.value)

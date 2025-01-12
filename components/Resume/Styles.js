@@ -18,6 +18,14 @@ const styles = StyleSheet.create({
         fontFamily: 'Times-Bold',
         textAlign: 'center',
     },
+    header__title: {
+        color: '#111',
+        fontSize: 14,
+        gap: 8,
+        marginTop: 3,
+        fontFamily: 'Times-Italic',
+        textAlign: 'center',
+    },
     header__links: {
         color: '#555',
         fontSize: 11,
