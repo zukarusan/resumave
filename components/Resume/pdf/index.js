@@ -1,10 +1,11 @@
 'use client';
 
-import { Page, Text, View, Document, Link } from '@react-pdf/renderer';
+import { Page, Text, View, Document, Link, StyleSheet } from '@react-pdf/renderer';
 import Section from './Section';
 import ListItem from './ListItem';
 import styles from '../Styles';
 import formatDate from '@/utils/formatDate';
+import React from 'react';
 
 const Header = ({ data }) => {
     const contactLinks = [
@@ -156,6 +157,54 @@ const Skills = ({ data }) => (
     </Section>
 );
 
+const SkillsSection = ({technical, soft, additional}) => {
+    const skillCategories = [
+      {
+        title: "Technical Skills",
+        skills: technical?.split('\n') ?? [],
+      },
+      {
+        title: "Soft Skills",
+        skills: soft?.split('\n') ?? [],
+      },
+      {
+        title: "Additional Skills",
+        skills: additional?.split('\n') ?? [],
+      },
+    ];
+  
+    return (
+      <Section title={"Skills"}>
+        <View style={StyleSheet.create({
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          gap: 3,
+        })}>
+          {skillCategories.map((category, index) => category.skills?.length > 0 && category.skills[0].trim() !== '' && (
+             <View key={index}>
+              <Text style={{ 
+                fontSize: 11,
+                fontFamily: 'Times-Bold',
+                marginRight: 'auto',
+                color: '#555',
+                }}>{category.title}</Text>
+              <View style={{
+                listStyleType: 'disc',
+                paddingLeft: '20px',
+                fontSize: 10
+              }}>
+                {category.skills.map((skill, skillIndex) => (
+                    <ListItem key={skillIndex}>{skill}</ListItem>
+                ))}
+              </View>
+            </View>
+          )) }
+        </View>
+      </Section>
+    );
+  };
+
 const Certificaes = ({ data }) => (
     <Section title={'Certifications'}>
         {data.map(({ title, issuer, date }, i) => (
@@ -181,7 +230,9 @@ const Languages = ({ data }) => (
             style={{
                 display: 'flex',
                 flexDirection: 'row',
-                justifyContent: 'space-between',
+                // justifyContent: 'space-between',
+                gap: 20,
+                flexWrap: 'wrap'
             }}
         >
             {data.map(({ language, proficiency }, i) => (
@@ -195,7 +246,7 @@ const Languages = ({ data }) => (
 );
 
 const Resume = ({ data }) => {
-    const { contact, education, experience, projects, summary, skills, certificates, languages } = data;
+    const { contact, education, experience, projects, summary, technical_skills, soft_skills, additional_skills, certificates, languages } = data;
 
     return (
         <Document language="en">
@@ -212,7 +263,8 @@ const Resume = ({ data }) => {
                 {experience.length > 0 && <Experience data={experience} />}
                 {projects.length > 0 && <Projects data={projects} />}
 
-                {skills?.skills?.length > 0 && <Skills data={skills.skills} />}
+                {(technical_skills?.technical_skills?.length > 0 || soft_skills?.soft_skills?.length > 0 || additional_skills?.additional_skills?.length > 0) 
+                    && <SkillsSection technical={technical_skills?.technical_skills} soft={soft_skills?.soft_skills} additional={additional_skills?.additional_skills} />}
                 {certificates?.length > 0 && <Certificaes data={certificates} />}
                 {languages?.length > 0 && <Languages data={languages} />}
             </Page>

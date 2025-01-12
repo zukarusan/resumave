@@ -6,7 +6,9 @@ const defaultResume = {
     education: [],
     experience: [],
     projects: [],
-    skills: {},
+    technical_skills: {},
+    soft_skills: {},
+    additional_skills: {},
     certificates: [],
     languages: [],
 
@@ -19,6 +21,9 @@ const resumeSlice = createSlice({
     reducers: {
         updateResumeValue: (state, action) => {
             const { tab, name, value, index } = action.payload;
+            if (state[tab] == null || state[tab] === undefined) {
+                state[tab] = {};
+            }
             if (index != null) {
                 state[tab][index][name] = value;
             } else {

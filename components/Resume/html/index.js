@@ -152,6 +152,54 @@ const Skills = ({ data }) => (
     </Section>
 );
 
+const SkillsSection = ({technical, soft, additional}) => {
+    const skillCategories = [
+      {
+        title: "Technical Skills",
+        skills: technical?.split('\n') ?? [],
+      },
+      {
+        title: "Soft Skills",
+        skills: soft?.split('\n') ?? [],
+      },
+      {
+        title: "Additional Skills",
+        skills: additional?.split('\n') ?? [],
+      },
+    ];
+  
+    return (
+      <Section title={"Skills"}>
+        <View style={StyleSheet.create({
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          gap: 6,
+        })}>
+          {skillCategories.map((category, index) => category.skills?.length > 0 && category.skills[0].trim() !== '' && (
+             <View key={index}>
+              <Text style={{ 
+                fontSize: 11,
+                fontFamily: 'Times-Bold',
+                marginRight: 'auto',
+                color: '#555',
+                }}>{category.title}</Text>
+              <View style={{
+                listStyleType: 'disc',
+                paddingLeft: '20px',
+                fontSize: 10
+              }}>
+                {category.skills.map((skill, skillIndex) => (
+                    <ListItem key={skillIndex}>{skill}</ListItem>
+                ))}
+              </View>
+            </View>
+          )) }
+        </View>
+      </Section>
+    );
+  };
+
 const Preview = () => {
     const resumeData = useSelector(state => state.resume);
 

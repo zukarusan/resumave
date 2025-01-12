@@ -78,15 +78,44 @@ export default {
             },
         ],
     },
-
-    skills: {
-        name: 'Skills',
+    technical_skills: {
+        name: 'Technical Skills',
+        multiple: false,
         fields: [
             {
-                name: 'skills',
-                label: 'Skills',
+                name: 'technical_skills',
+                label: 'Technical Skills',
                 type: 'textarea',
-                placeholder: 'List your skills separated by commas...',
+                placeholder: 'List your skills separated by lines...',
+                span: true,
+                rows: 3,
+            },
+        ],
+    },
+    soft_skills: {
+        name: 'Soft Skills',
+        multiple: false,
+        fields: [
+            {
+                name: 'soft_skills',
+                label: 'Soft Skills',
+                type: 'textarea',
+                placeholder: 'List your skills separated by lines...',
+                span: true,
+                rows: 3,
+            },
+        ],
+    },
+
+    additional_skills: {
+        name: 'Additional Skills',
+        multiple: false,
+        fields: [
+            {
+                name: 'additional_skills',
+                label: 'Additional Skills',
+                type: 'textarea',
+                placeholder: 'List your skills separated by lines...',
                 span: true,
                 rows: 3,
             },
